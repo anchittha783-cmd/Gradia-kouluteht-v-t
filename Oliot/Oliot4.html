@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pankki luokka</title>
+
+    <script>
+        // odota html sivu on ladattu ja käynnistä ohjelma
+        document.addEventListener("DOMContentLoaded", function() {
+            startApp();
+        });
+
+        class TiliTapahtuma {
+            constructor(tapahtumaDate, tapahtuma, summa, saldoBefore) {
+                this.tapahtumaDate=tapahtumaDate;
+                this.tapahtuma=tapahtuma; //Nosto,Talletus
+                this.summa=summa;
+                this.saldoBefore=saldoBefore; // saldo ennen nostoa tai talletusta
+            }
+
+            toString() {
+                let strDate = this.tapahtumaDate.toISOString(); // "2026-02-16T13:55:49".879Z
+                return `|Date=${strDate}, tapahtuma=${this.tapahtuma}, summa=${this.summa}, saldoEnnenTapahtumaa=${this.saldoBefore}`;
+            }      
+        }
+
+        class Pankkitili {
+            constructor(accountNumber) {
+                this.tilinumero = accountNumber;
+                this.saldo = 0; // number
+                this.historia = []; // array of TiliTapahtuma
+            }
+
+            talleta(summa) {
+                if(summa<=0)  
+                    return; // do nothing
+                let saldoBefore = this.saldo;
+                this.saldo += summa; // laita rahaa pankkiin
+                // add tapahtuma to an array list
+                let tapahtuma = new TiliTapahtuma(new Date(), "Talletus", summa, saldoBefore);
+                this.historia.push(tapahtuma);
+            }
+
+            nosta(summa) {
+                if(this.saldo-summa < 0 || summa<=0)  
+                    return; // do nothing
+                let saldoBefore= this.saldo;
+                this.saldo -= summa; // ota rahat pois pankista
+                // add tapahtuma to an array list
+                let tapahtuma = new TiliTapahtuma(new Date(), "Nosto", summa, saldoBefore);
+                this.historia.push(tapahtuma);                
+            }
+
+            naytaHistoria() {
+                printToScreen(this.historia);
+            }
+
+            naytaTiedot() {
+                let value = "Tilinumero: " + this.tilinumero
+                    + ", saldo: " + this.saldo
+                    + ", historia: " + this.historia;
+                printToScreen(value);
+            }
+        }
+
+        function printToScreen(text) {
+            console.log(text);
+            let elem = document.getElementById("result");
+            elem.innerHTML += text + "<br>";
+        }
+
+        function startApp() {
+            let omaTili = new Pankkitili("FI12345-67");
+            omaTili.naytaTiedot();
+            printToScreen("");
+            
+            omaTili.talleta(12);
+            omaTili.naytaTiedot();
+            printToScreen("");
+            
+            omaTili.talleta(3);
+            omaTili.naytaTiedot();
+            printToScreen("");
+
+            omaTili.nosta(7);
+            omaTili.naytaTiedot();
+            printToScreen("");
+
+            printToScreen("Näytä tilitapahtumat:");
+            omaTili.naytaHistoria();
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="result"></div>
+</body>
+
+</html>
