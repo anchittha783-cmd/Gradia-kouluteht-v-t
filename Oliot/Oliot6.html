@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pankki korko ja luotto</title>
+
+    <script>
+        class Pankki {
+            constructor(tilinumero, saldo) {
+                this.tilinumero = tilinumero;
+                this.saldo = saldo;
+            }
+
+            talleta(summa) {
+                this.saldo += summa;
+            }
+
+            nosta(summa) {
+                this.saldo -= summa;
+            }
+        }
+
+        class TarkistavaPankki extends Pankki {
+
+            onkoValidiTilinumero() {
+                return this.tilinumero.length === 8 && !isNaN(this.tilinumero);
+            }
+
+            onkoTarpeeksiRahaa(summa) {
+                return this.saldo >= summa;
+            }
+
+            lisaaKorko(prosentti) {
+                let korko = this.saldo * (prosentti / 100);
+                this.saldo += korko;
+                return this.saldo;
+            }
+
+            tarkistaLuottoraja(nettotulot) {
+                let maksimiLuotto = nettotulot * 0.25;
+                return maksimiLuotto;
+            }
+        }
+
+
+        let tilinumero = prompt("Anna tilinumero:");
+        let nettotulot = parseFloat(prompt("Anna kk nettotulot:"));
+
+        let tili = new TarkistavaPankki(tilinumero, 1000);
+
+        if (tili.onkoValidiTilinumero()) {
+
+            console.log("Tilinumero OK");
+
+            tili.lisaaKorko(5);
+            console.log("Saldo koron jälkeen: " + tili.saldo);
+
+            let luotto = tili.tarkistaLuottoraja(nettotulot);
+            console.log("Maksimi luottoraja: " + luotto + " €");
+
+        } else {
+            console.log("Virheellinen tilinumero");
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pankkitilin tarkistus</title>
+
+    <script>
+        class Pankki {
+            constructor(tilinumero, saldo) {
+                this.tilinumero = tilinumero;
+                this.saldo = saldo;
+            }
+
+            tallete(summa) {
+                this.saldo += summa;
+            }
+
+            naytaSalodo() {
+                console, log("Saldo: ", this.saldo);
+            }
+        }
+
+        class TarkistavaPankki extends Pankki {
+
+            constructor(tilinumero, saldo) {
+                super(tilinumero, saldo);
+            }
+
+            onkoTarpeeksiRahaa(summa) {
+                if (this.saldo >= summa) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            onkoValidiTilinumero() {
+                if (this.tilinumero.length === 8 && !isNaN(this.tilinumero)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        let kayttajanTilinumero = prompt("Anna tilinumero:");
+        let pankkitili = new TarkistavaPankki(kayttajanTilinumero, 500);
+
+        if (pankkitili.onkoValidiTilinumero()) {
+            console.log("Tilinumero on validi.");
+
+            let nostettava = 200;
+
+            if (pankkitili.onkoTarpeeksiRahaa(nostettava)) {
+                console.log("Rahaa voidaan nostaa.");
+            } else {
+                console.log("Ei tarpeeksi rahaa.");
+            }
+
+        } else {
+            console.log("Virheellinen tilinumero.");
+        }
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
