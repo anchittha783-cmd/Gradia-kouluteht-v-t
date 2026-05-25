@@ -1,0 +1,32 @@
+<style>
+aside {
+
+    width: 300px;
+    height: 400px;
+    background-image: url(Kuva.jpg);
+    background-size: 300px;
+    position: absolute;
+
+}
+
+.grid {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items; flex-start;
+    gap: 5px;
+    flex-wrap: wrap;
+
+}
+
+main {
+
+    width: 850px;
+    height: auto;
+    background-color: #f0f0f0;
+    color: #3d3038;
+
+    margin-left: 315px;
+    padding: 10px;
+
+}

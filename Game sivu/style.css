@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial Black', sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(circle at center, rgba(0,120,255,0.3), transparent 40%),
+    linear-gradient(to bottom, #020617, #000);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 25px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.navbar nav a {
+  margin: 0 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar button {
+  background: gold;
+  color: black;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 100vh;
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.2)),
+    url('blackground.png') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+}
+
+.hero-content h1 {
+  font-size: 6rem;
+  line-height: 0.9;
+}
+
+.hero-content h1 span {
+  color: #ffd000;
+  text-shadow: 0 0 20px #ffd000;
+}
+
+.hero-content h2 {
+  color: #ffd000;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  margin: 25px 0;
+  font-size: 1.3rem;
+}
+
+.hero-content button {
+  padding: 18px 36px;
+  background: #ffd000;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+/* GAME CARDS */
+.games {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 60px;
+  margin-top: -120px;
+  position: relative;
+  z-index: 5;
+}
+
+.card {
+  height: 350px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.15);
+  background-size: cover;
+  background-position: center;
+  transition: 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 35px rgba(255,215,0,0.4);
+}
+
+.pacman {
+  background-image: url('../game-1/screenshot.png');
+}
+
+.flappy {
+  background-image: url('../game-2/screenshot.png');
+}
+
+.chess {
+  background-image: url('../game-3/screenshot.png');
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: gold;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100vh); }
+}
